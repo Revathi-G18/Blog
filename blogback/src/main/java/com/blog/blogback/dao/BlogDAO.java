@@ -2,9 +2,11 @@ package com.blog.blogback.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.blog.blogback.model.Blog;
 import com.blog.blogback.model.BlogComment;
-
+@Service
 public interface BlogDAO {
  public boolean addBlog(Blog blog);
  public boolean deleteBlog(int blogId);

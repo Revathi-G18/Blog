@@ -2,16 +2,19 @@ package com.blog.blogback.dao;
 
 import java.util.List;
 
+
 import javax.transaction.Transactional;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.blog.blogback.model.Blog;
 import com.blog.blogback.model.BlogComment;
+@Transactional
 @Repository("blogDAO")
 public class BlogDAOImpl implements BlogDAO {
 	
@@ -20,7 +23,15 @@ public class BlogDAOImpl implements BlogDAO {
 	public boolean addBlog(Blog blog) {
 		try
 		{
-		sessionFactory.getCurrentSession().save(blog);
+			Session session=sessionFactory.openSession();
+			Transaction transaction =session.getTransaction();
+			transaction.begin();
+			session.save(blog);
+			transaction.commit();
+			session.close();
+		//sessionFactory.getCurrentSession().save(blog);
+	
+		System.out.println(sessionFactory.getCurrentSession());
 		return true;
 		}
 		catch(Exception e)
@@ -62,7 +73,7 @@ public class BlogDAOImpl implements BlogDAO {
 	}
 	@Transactional
 	public boolean approveBlog(Blog blog) {
-		sessionFactory.getCurrentSession().update(blog);
+		sessionFactory.getCurrentSession().saveOrUpdate(blog);
 		return true;
 	}
 	@Transactional

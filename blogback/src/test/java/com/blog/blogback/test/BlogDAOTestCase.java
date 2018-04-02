@@ -14,6 +14,7 @@ import com.blog.blogback.model.Blog;
 import com.blog.blogback.model.BlogComment;
 
 public class BlogDAOTestCase {
+
 static BlogDAO blogDAO;
 
 @BeforeClass
@@ -25,7 +26,7 @@ public static void intialize(){
 	
 	blogDAO=(BlogDAO)context.getBean("blogDAO");
 }
-@Ignore
+
 @Test
 public void addBlogTest(){
 	Blog blog=new Blog();
@@ -35,13 +36,14 @@ public void addBlogTest(){
 	blog.setLoginName("ray");
 	blog.setCreateDate(new java.util.Date());
 	blog.setStatus("status");
+	blog.setBlogId(953);
 	assertTrue("Problem in Blog Insetion",blogDAO.addBlog(blog));
 	
 }
 @Ignore
 @Test
 public void deleteBlogTest(){
-	assertTrue("Problem in Blog Deletion",blogDAO.deleteBlog(953));
+	assertTrue("Problem in Blog Deletion",blogDAO.deleteBlog(1));
 	
 }
 @Ignore
@@ -51,7 +53,7 @@ public void rejectBlogTest(){
 	assertTrue("Problem in Blog Rejection",blogDAO.rejectBlog(blog));
 	
 }
-
+@Ignore
 @Test
 public void approvalBlogTest(){
 	Blog blog=blogDAO.getBlog(953);
@@ -79,6 +81,7 @@ public void incrementBlogLikeTest(){
 	assertTrue("Problem in Increment Like",blogDAO.incrementLike(blog));
 	
 }
+@Ignore
 @Test
 public void addCommentTest(){
 	BlogComment comment=new BlogComment();

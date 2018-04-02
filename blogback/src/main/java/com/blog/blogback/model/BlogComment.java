@@ -2,8 +2,9 @@ package com.blog.blogback.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
-
+@Entity
 public class BlogComment {
 @Id
 int commentId;

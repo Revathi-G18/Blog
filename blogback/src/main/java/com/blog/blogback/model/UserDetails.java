@@ -1,7 +1,8 @@
 package com.blog.blogback.model;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
-
+@Entity
 public class UserDetails {
 @Id
 String loginName;
