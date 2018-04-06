@@ -17,7 +17,6 @@ import com.blog.blogback.model.BlogComment;
 @Transactional
 @Repository("blogDAO")
 public class BlogDAOImpl implements BlogDAO {
-	
 	@Autowired
 	private SessionFactory sessionFactory;
 	public boolean addBlog(Blog blog) {
@@ -62,11 +61,16 @@ public class BlogDAOImpl implements BlogDAO {
 
 	public List<Blog> listBlogs(String userName) {
 		try{
+			System.out.println("before open session");
 		Session session=sessionFactory.openSession();
+		System.out.println("after open session and beforenquery execution");
 		Query query=session.createQuery("from Blog where loginName=:userName");
+		System.out.println("after query execution and before listing" );
 		System.out.println(query.list());
-		//List<Category> listCategories=(List<Category>)query.list();
-		return query.list();}
+		System.out.println("after listing");
+		//List<Blog> listBlog=(List<Blog>)query.list();
+		return query.list();
+		}
 		catch(Exception e){
 			return null;
 		}
@@ -83,6 +87,7 @@ public class BlogDAOImpl implements BlogDAO {
 			blog.setStatus("NA");
 			sessionFactory.getCurrentSession().update(blog);
 			return true;
+			
 		}
 		catch(Exception e)
 		{
@@ -141,7 +146,13 @@ public class BlogDAOImpl implements BlogDAO {
 	public boolean addBlogComment(BlogComment blogComment) {
 		try
 		{
-		sessionFactory.getCurrentSession().save(blogComment);
+			Session session=sessionFactory.openSession();
+			Transaction transaction =session.getTransaction();
+			transaction.begin();
+			session.save(blogComment);
+			transaction.commit();
+			session.close();
+		//sessionFactory.getCurrentSession().save(blogComment);
 		return true;
 		}
 		catch(Exception e)

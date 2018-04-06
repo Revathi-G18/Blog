@@ -1,4 +1,4 @@
-/*package com.blog.blogback.config;
+package com.blog.blogback.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -22,4 +22,3 @@ protected String[] getServletMappings() {
 	return null;
 }
 }
-*/

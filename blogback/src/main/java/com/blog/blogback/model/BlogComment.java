@@ -1,17 +1,21 @@
 package com.blog.blogback.model;
 
 import java.util.Date;
-
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import org.springframework.stereotype.Component;
+@Component
 @Entity
 public class BlogComment {
 @Id
+@GeneratedValue
 int commentId;
 String commentText;
 String loginName;
 int blogId;
-Date commentDate;
+//jason
+Date todayDate;
 
 
 public int getCommentId() {
@@ -38,11 +42,11 @@ public int getBlogId() {
 public void setBlogId(int blogId) {
 	this.blogId = blogId;
 }
-public Date getCommentDate() {
-	return commentDate;
+public Date gettodayDate() {
+	return todayDate;
 }
 
-public void setCommentDate(Date commentDate) {
-	this.commentDate = commentDate;
+public void settodayDate(Date todayDate) {
+	this.todayDate = todayDate;
 }
 }

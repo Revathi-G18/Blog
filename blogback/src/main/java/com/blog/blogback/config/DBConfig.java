@@ -17,21 +17,20 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import com.blog.blogback.model.Blog;
 import com.blog.blogback.model.Forum;
 import com.blog.blogback.model.Job;
-import com.blog.blogback.model.UserDetails;
+import com.blog.blogback.model.UserDetail;
+
 
 @Configuration
 @ComponentScan("com.blog.blogback")
-//@EnableWebMvc
 @EnableTransactionManagement
 public class DBConfig {
 	@Bean(name="dataSource")
 	public DataSource getDataSource()
 	{
-		DriverManagerDataSource dataSource=new DriverManagerDataSource();
-		
+		DriverManagerDataSource dataSource=new DriverManagerDataSource();		
 		dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
 		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:XE");
-		dataSource.setUsername("SYSTEM");
+		dataSource.setUsername("BLOG");
 		dataSource.setPassword("root");
 		return dataSource;
 	}
@@ -39,32 +38,18 @@ public class DBConfig {
 	@Bean(name="sessionFactory")
 	public SessionFactory getSessionFactory()
 	{
-		LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(getDataSource());
-		sessionBuilder.scanPackages("com.blog.blogback.model");
-		sessionBuilder.setProperty("hibernate.show_sql", "true");
-		sessionBuilder.setProperty("hibernate.dialect", "org.hibernate.dialect.OracleDialect");
-		sessionBuilder.setProperty("hibernate.hbm2ddl.auto", "create");
-		//sessionBuilder.addAnnotatedClass(Blog.class);
-		//return sessionBuilder.buildSessionFactory();​
-		return sessionBuilder.buildSessionFactory();
-	}
-		/*Properties hibernateProp=new Properties();
-		hibernateProp.setProperty("hibernate.hbm2ddl.auto", "create");
-		hibernateProp.put("hibernate.dialect","org.hibernate.dialect.OracleDialect");
+		Properties hibernateProp=new Properties();
+		hibernateProp.setProperty("hibernate.hbm2ddl.auto", "update");
+		hibernateProp.setProperty("hibernate.show_sql", "true");
+		hibernateProp.put("hibernate.dialect","org.hibernate.dialect.Oracle10gDialect");
 		LocalSessionFactoryBuilder factoryBuilder=new LocalSessionFactoryBuilder(getDataSource());
 		factoryBuilder.addAnnotatedClass(Blog.class);
 		factoryBuilder.addAnnotatedClass(Forum.class);
 		factoryBuilder.addAnnotatedClass(Job.class);
-		factoryBuilder.addAnnotatedClass(UserDetails.class);		
-		factoryBuilder.addAnnotatedClass(UserDetails.class);
-			factoryBuilder.addAnnotatedClass(BillingAddress.class);
-		factoryBuilder.addAnnotatedClass(ShippingAddress.class);
-		factoryBuilder.addAnnotatedClass(Cart.class);
-		factoryBuilder.addAnnotatedClass(CartItem.class);
-		factoryBuilder.addAnnotatedClass(CustomerOrder.class);
-		factoryBuilder.addProperties(hibernateProp);
-		return factoryBuilder.buildSessionFactory();*/
-	
+		factoryBuilder.addAnnotatedClass(UserDetail.class);	
+		System.out.println("classes are created");
+		return factoryBuilder.buildSessionFactory();
+	}
 	
 	@Bean(name="txManager")
 	public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory)

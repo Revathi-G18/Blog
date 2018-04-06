@@ -24,7 +24,6 @@ int likes;
 String loginName;
 String status;
 
-
 public int getBlogId() {
 	return blogId;
 }
@@ -67,7 +66,4 @@ public String getStatus() {
 public void setStatus(String status) {
 	this.status = status;
 }
-
-
-
 }

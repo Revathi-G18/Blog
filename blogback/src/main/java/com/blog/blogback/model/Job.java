@@ -1,8 +1,14 @@
 package com.blog.blogback.model;
 
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+
+import org.springframework.stereotype.Component;
+//@Component
 @Entity
+//@SequenceGenerator(name="jobidseq",sequenceName="jobid_seq")
 public class Job {
 @Id
 String jobId;
@@ -11,6 +17,7 @@ String company;
 int salary;
 String location;
 String jobDesc;
+//Date lastDate;
 
 
 public String getJobId() {
@@ -49,6 +56,12 @@ public String getJobDesc() {
 public void setJobDesc(String jobDesc) {
 	this.jobDesc = jobDesc;
 }
-
+/*public Date getLastDate() {
+	return lastDate;
+}
+public void setLastDate(Date lastDate) {
+	this.lastDate = lastDate;
+}
+*/
 
 }

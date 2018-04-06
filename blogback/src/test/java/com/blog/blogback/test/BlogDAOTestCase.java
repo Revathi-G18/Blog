@@ -24,7 +24,7 @@ public static void intialize(){
 	context.scan("com.blog.*");
 	context.refresh();
 	
-	blogDAO=(BlogDAO)context.getBean("blogDAO");
+	blogDAO=(BlogDAO)context.getBean("blogDAO");	
 }
 
 @Test
@@ -36,14 +36,14 @@ public void addBlogTest(){
 	blog.setLoginName("ray");
 	blog.setCreateDate(new java.util.Date());
 	blog.setStatus("status");
-	blog.setBlogId(953);
+	blog.setBlogId(954);
 	assertTrue("Problem in Blog Insetion",blogDAO.addBlog(blog));
 	
 }
 @Ignore
 @Test
 public void deleteBlogTest(){
-	assertTrue("Problem in Blog Deletion",blogDAO.deleteBlog(1));
+	assertTrue("Problem in Blog Deletion",blogDAO.deleteBlog(50050));
 	
 }
 @Ignore
@@ -60,7 +60,7 @@ public void approvalBlogTest(){
 	assertTrue("Problem in Blog Approval",blogDAO.approveBlog(blog));
 	
 }
-@Ignore
+
 @Test
 public void listBlogbyUserTest(){
 	List<Blog> listblog=blogDAO.listBlogs("ray");
@@ -81,14 +81,15 @@ public void incrementBlogLikeTest(){
 	assertTrue("Problem in Increment Like",blogDAO.incrementLike(blog));
 	
 }
-@Ignore
+
 @Test
 public void addCommentTest(){
 	BlogComment comment=new BlogComment();
 	comment.setLoginName("ray");
 	comment.setCommentText("this is the comment line");
-	comment.setBlogId(953);
-	comment.setCommentDate(new java.util.Date());
+	comment.setBlogId(9);
+	comment.settodayDate(new java.util.Date());
+	comment.setCommentId(5);
 	assertTrue("Problem in Blog Approval",blogDAO.addBlogComment(comment));
 }
 }
