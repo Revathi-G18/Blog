@@ -26,7 +26,7 @@ public static void intialize(){
 	
 	blogDAO=(BlogDAO)context.getBean("blogDAO");	
 }
-
+@Ignore
 @Test
 public void addBlogTest(){
 	Blog blog=new Blog();

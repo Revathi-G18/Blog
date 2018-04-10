@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 public class BlogComment {
 @Id
 @GeneratedValue
+
 int commentId;
 String commentText;
 String loginName;
