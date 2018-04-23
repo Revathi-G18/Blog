@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
@@ -14,39 +16,46 @@ import org.springframework.stereotype.Component;
 @Entity
 @SequenceGenerator(name="blogidseq",sequenceName="myblog_seq")
 public class Blog {
-@Id
-@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="blogidseq")
-int blogId;
-String blogName;
-String blogContent;
-Date createDate;
-int likes;
-String loginName;
-String status;
-
-public int getBlogId() {
-	return blogId;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+ private int id;
+ private String blogTitle;
+ @Lob
+ private String blogcontent;
+ private Date postedon;
+ @ManyToOne
+ private UserDetail postedBy;
+ private int likes;
+ private boolean approved;
+public int getId() {
+	return id;
 }
-public void setBlogId(int blogId) {
-	this.blogId = blogId;
+public void setId(int id) {
+	this.id = id;
 }
-public String getBlogName() {
-	return blogName;
+public String getBlogTitle() {
+	return blogTitle;
 }
-public void setBlogName(String blogName) {
-	this.blogName = blogName;
+public void setBlogTitle(String blogTitle) {
+	this.blogTitle = blogTitle;
 }
-public String getBlogContent() {
-	return blogContent;
+public String getBlogcontent() {
+	return blogcontent;
 }
-public void setBlogContent(String blogContent) {
-	this.blogContent = blogContent;
+public void setBlogcontent(String blogcontent) {
+	this.blogcontent = blogcontent;
 }
-public Date getCreateDate() {
-	return createDate;
+public Date getPostedon() {
+	return postedon;
 }
-public void setCreateDate(Date createDate) {
-	this.createDate = createDate;
+public void setPostedon(Date postedon) {
+	this.postedon = postedon;
+}
+public UserDetail getPostedBy() {
+	return postedBy;
+}
+public void setPostedBy(UserDetail postedBy) {
+	this.postedBy = postedBy;
 }
 public int getLikes() {
 	return likes;
@@ -54,16 +63,13 @@ public int getLikes() {
 public void setLikes(int likes) {
 	this.likes = likes;
 }
-public String getLoginName() {
-	return loginName;
+public boolean isApproved() {
+	return approved;
 }
-public void setLoginName(String loginName) {
-	this.loginName = loginName;
+public void setApproved(boolean approved) {
+	this.approved = approved;
 }
-public String getStatus() {
-	return status;
-}
-public void setStatus(String status) {
-	this.status = status;
-}
+
+ 
+
 }

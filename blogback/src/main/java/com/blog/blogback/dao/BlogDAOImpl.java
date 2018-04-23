@@ -14,176 +14,68 @@ import org.springframework.stereotype.Repository;
 
 import com.blog.blogback.model.Blog;
 import com.blog.blogback.model.BlogComment;
+import com.blog.blogback.model.Notification;
 @Transactional
 @Repository("blogDAO")
 public class BlogDAOImpl implements BlogDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
-	public boolean addBlog(Blog blog) {
-		try
-		{
-			Session session=sessionFactory.openSession();
-			Transaction transaction =session.getTransaction();
-			transaction.begin();
-			session.save(blog);
-			transaction.commit();
-			session.close();
-		//sessionFactory.getCurrentSession().save(blog);
 	
-		System.out.println(sessionFactory.getCurrentSession());
-		return true;
-		}
-		catch(Exception e)
-		{
-		System.out.println("Exception Arised:"+e);
-		return false;
-		}
+	public void addBlogPost(Blog blog) {
+		
+         Session session=sessionFactory.getCurrentSession();
+         session.save(blog);
 	}
-
-	public boolean deleteBlog(int blogId) {
-		try
-		{
-			Blog blog=(Blog) sessionFactory.getCurrentSession().get(Blog.class,blogId);
-			sessionFactory.getCurrentSession().delete(blog);
-			return true;
-		}
-		catch(Exception e)
-		{
-			System.out.println("Exception Arised:"+e);
-			return false;
-		}
+	
+	public List<Blog> listofBlogs(int approved) {
+		Session session=sessionFactory.getCurrentSession();
+		Query query=session.createQuery("from BlogPost where approved=" +approved);
+		List<Blog> blogs=query.list();
+		return blogs;
 	}
-
-	public boolean updateBlog(int blogId) {
-		// TODO Auto-generated method stub
-		return false;
+	
+	public Blog getBlog(int id) {
+		Session session=sessionFactory.getCurrentSession();
+		Blog blog=(Blog)session.get(Blog.class, id);
+		return blog;
 	}
-
-	public List<Blog> listBlogs(String userName) {
-		try{
-			System.out.println("before open session");
-		Session session=sessionFactory.openSession();
-		System.out.println("after open session and beforenquery execution");
-		Query query=session.createQuery("from Blog where loginName=:userName");
-		System.out.println("after query execution and before listing" );
-		System.out.println(query.list());
-		System.out.println("after listing");
-		//List<Blog> listBlog=(List<Blog>)query.list();
-		return query.list();
-		}
-		catch(Exception e){
-			return null;
-		}
-	}
-	@Transactional
-	public boolean approveBlog(Blog blog) {
-		sessionFactory.getCurrentSession().saveOrUpdate(blog);
-		return true;
-	}
-	@Transactional
-	public boolean rejectBlog(Blog blog) {
-		try
-		{
-			blog.setStatus("NA");
-			sessionFactory.getCurrentSession().update(blog);
-			return true;
-			
-		}
-		catch(Exception e)
-		{
-			System.out.println("Exception Arised:"+e);
-			return false;
-		}	
-	}
-
-	public Blog getBlog(int blogId) {
-		try{
-		Session session=sessionFactory.openSession();
-		Blog blog=(Blog)session.get(Blog.class,blogId);
-		return blog;}
-		catch(Exception e){
-			return null;
-		}
-	}
-
-	public List<Blog> listAllBlogs() {
-		try{
-			Session session=sessionFactory.openSession();
-			Query query=session.createQuery("from Blog");
-			//List<Category> listCategories=(List<Category>)query.list();
-			return query.list();}
-			catch(Exception e){
-				return null;
-			}
+	
+	public void approve(Blog blog) {
+		Session session=sessionFactory.getCurrentSession();
+		blog.setApproved(true);
+		session.update(blog);
+		Notification notification=new Notification();
+		notification.setBlogTitle(blog.getBlogTitle());
+		notification.setApprovalStatus("Approved");
+		notification.setEmail(blog.getPostedBy().getEmail());
+		session.save(notification);
 		
 	}
-
-	public boolean incrementLike(Blog blog) {
-		try{
-			int likes=blog.getLikes();
-			likes++;
-			blog.setLikes(likes);
-			sessionFactory.getCurrentSession().update(blog);
-			return true;
-		}
-		catch(Exception e){
-			return false;
-		}
+	
+	public void reject(Blog blog,String rejectionReason) {
+		Session session=sessionFactory.getCurrentSession();
+		Notification notification=new Notification();
+		notification.setBlogTitle(blog.getBlogTitle());
+		notification.setApprovalStatus("Rejected");
+		notification.setEmail(blog.getPostedBy().getEmail());
+		notification.setRejectionReason(rejectionReason);
+		session.save(notification);
+		session.delete(blog);
 		
 	}
-
-	public List<BlogComment> listBlogComments(int blogId) {
-		try{
-			Session session=sessionFactory.openSession();
-			Query query=session.createQuery("from BlogComment");
-			//List<Category> listCategories=(List<Category>)query.list();
-			return query.list();}
-			catch(Exception e){
-				return null;
-			}
+	
+	public void addBlogComment(BlogComment blogComment) {
+	Session session=sessionFactory.getCurrentSession();
+	session.save(blogComment);
+		
 	}
-
-	public boolean addBlogComment(BlogComment blogComment) {
-		try
-		{
-			Session session=sessionFactory.openSession();
-			Transaction transaction =session.getTransaction();
-			transaction.begin();
-			session.save(blogComment);
-			transaction.commit();
-			session.close();
-		//sessionFactory.getCurrentSession().save(blogComment);
-		return true;
-		}
-		catch(Exception e)
-		{
-		System.out.println("Exception Arised:"+e);
-		return false;
-		}
-	}
-
-	public boolean deleteBlogComment(BlogComment blogComment) {
-		try
-		{
-			//BlogComment blogcomment=(BlogComment) sessionFactory.getCurrentSession().get(BlogComment.class,commentId);
-			sessionFactory.getCurrentSession().delete(blogComment);
-			return true;
-		}
-		catch(Exception e)
-		{
-			System.out.println("Exception Arised:"+e);
-			return false;
-		}
-	}
-
-	public BlogComment getBlogComment(int commentId) {
-		try{
-			Session session=sessionFactory.openSession();
-			BlogComment blogcomment=(BlogComment)session.get(BlogComment.class,commentId);
-			return blogcomment;}
-			catch(Exception e){
-				return null;
-			}
+	
+	public List<BlogComment> getAllBlogComments(int blogPostId) {
+		Session session=sessionFactory.getCurrentSession();
+		Query query=session.createQuery("from BlogComment where blogPost.id=?");
+		query.setInteger(0, blogPostId);
+		List<BlogComment> blogComments=query.list();
+		return blogComments;
 	}
 
 }

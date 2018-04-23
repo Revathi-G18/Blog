@@ -12,7 +12,7 @@ public class Forum {
 int forumId;
 String forumName;
 String forumContent;
-Date crateDate;
+Date createDate;
 int likes;
 String userName;
 String status;
@@ -36,11 +36,11 @@ public String getForumContent() {
 public void setForumContent(String forumContent) {
 	this.forumContent = forumContent;
 }
-public Date getCrateDate() {
-	return crateDate;
+public Date getCreateDate() {
+	return createDate;
 }
-public void setCrateDate(Date crateDate) {
-	this.crateDate = crateDate;
+public void setCreateDate(Date createDate) {
+	this.createDate = createDate;
 }
 public int getLikes() {
 	return likes;

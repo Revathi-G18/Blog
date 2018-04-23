@@ -21,11 +21,11 @@ import com.blog.blogback.model.UserDetail;
 
 
 @Configuration
-@ComponentScan("com.blog.blogback")
+@ComponentScan("com.blog")
 @EnableTransactionManagement
 public class DBConfig {
 	@Bean(name="dataSource")
-	public DataSource getDataSource()
+	public DataSource getDataSource() 
 	{
 		DriverManagerDataSource dataSource=new DriverManagerDataSource();		
 		dataSource.setDriverClassName("oracle.jdbc.OracleDriver");

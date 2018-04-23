@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,59 +14,28 @@ import org.springframework.stereotype.Repository;
 import com.blog.blogback.model.Job;
 
 
-@Repository("jobDAO")
+@Repository
 @Transactional
 public class JobDAOImpl implements JobDAO{
 	@Autowired
 	private SessionFactory sessionFactory;
-	
-	public boolean deleteJob(int jobId) {
-		try
-		{
-			Job job=(Job) sessionFactory.getCurrentSession().get(Job.class,jobId);
-			sessionFactory.getCurrentSession().delete(job);
-			return true;
-		}
-		catch(Exception e)
-		{
-			System.out.println("Exception Arised:"+e);
-			return false;
-		}
-	}
-
-	public boolean updateJob(int jobId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public List<Job> listJobs(String userName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public boolean addJob(Job job) {
-		try
-		{
-			Session session=sessionFactory.openSession();
-			Transaction transaction =session.getTransaction();
-			transaction.begin();
+		
+		public void addJob(Job job) {
+			Session session=sessionFactory.getCurrentSession();
 			session.save(job);
-			transaction.commit();
-			session.close();
-		//sessionFactory.getCurrentSession().save(job);
-		System.out.println(sessionFactory.getCurrentSession());
-		return true;
-		}
-		catch(Exception e)
-		{
-		System.out.println("Exception Arised:"+e);
-		return false;
-		}
-	}
 
-	public Job getJob(int jobId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		}
+		
+		public List<Job> getAllJobs() {
+			Session session=sessionFactory.getCurrentSession();
+			Query query=session.createQuery("from Job");
+			return query.list();
+		}
+	
+		public Job getJob(int id) {
+			Session session=sessionFactory.getCurrentSession();
+			Job job=(Job)session.get(Job.class, id);
+			return job;
+		}
 
 }

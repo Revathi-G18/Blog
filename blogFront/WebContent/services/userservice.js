@@ -1,11 +1,14 @@
-app.factory('UserService',function($http)
+myApp.factory('UserService',function($http)
 {
-	var BASE_URL="http://localhost:9090/Middleware"
+	var BASE_URL="http://localhost:8085/blogMiddle"
 	var userService={}
-	userService.registerUser=function(user)
+	userService.registerUser=function(userdetail)
 	{
-		console.log(user)
-		return $http.post(BASE_URL+ "/registeruser", user)
+		console.log(userdetail)
+		console.log("in user service")	
+		console.log($http.post(BASE_URL+ "/registeruser", userdetail))
+		return $http.post(BASE_URL+ "/registeruser", userdetail)
+		
 	}
 	
 	userService.login=function(user)

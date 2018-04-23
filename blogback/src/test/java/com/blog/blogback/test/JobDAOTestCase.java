@@ -30,7 +30,7 @@ public class JobDAOTestCase {
 		//job.setLastDate(new java.util.Date());
 		job.setLocation("Bangalore");
 		job.setSalary(30000);
-		job.setJobId("2");
+		job.setJobId(2);
 		assertTrue("Problem in Blog Insetion",jobDAO.addJob(job));
 		}
 }
