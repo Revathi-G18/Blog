@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class Job {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private int jobid;
 	@Column(nullable=false)
 	private String jobtitle;
 	private String jobdescription;
@@ -29,11 +29,13 @@ public class Job {
 	private String companyName;
 	private String salary;
 	private Date postedon;
-	public int getId() {
-		return id;
+	
+	
+	public int getJobid() {
+		return jobid;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setJobid(int jobid) {
+		this.jobid = jobid;
 	}
 	public String getJobtitle() {
 		return jobtitle;

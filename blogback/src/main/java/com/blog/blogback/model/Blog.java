@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-@SequenceGenerator(name="blogidseq",sequenceName="myblog_seq")
+//@SequenceGenerator(name="blogidseq",sequenceName="myblog_seq")
 public class Blog {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -26,7 +26,7 @@ public class Blog {
  @ManyToOne
  private UserDetail postedBy;
  private int likes;
- private boolean approved;
+ private int approved;
 public int getId() {
 	return id;
 }
@@ -63,13 +63,11 @@ public int getLikes() {
 public void setLikes(int likes) {
 	this.likes = likes;
 }
-public boolean isApproved() {
+public int getApproved() {
 	return approved;
 }
-public void setApproved(boolean approved) {
+public void setApproved(int approved) {
 	this.approved = approved;
 }
-
- 
 
 }

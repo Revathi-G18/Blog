@@ -15,18 +15,23 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.blog.blogback.model.Blog;
-import com.blog.blogback.model.Forum;
+import com.blog.blogback.model.BlogComment;
+import com.blog.blogback.model.BlogPostLikes;
+import com.blog.blogback.model.Chat;
+import com.blog.blogback.model.Friend;
 import com.blog.blogback.model.Job;
+import com.blog.blogback.model.Notification;
+import com.blog.blogback.model.ProfilePicture;
 import com.blog.blogback.model.UserDetail;
 
 
 @Configuration
 @ComponentScan("com.blog")
-@EnableTransactionManagement
+@EnableTransactionManagement 
 public class DBConfig {
 	@Bean(name="dataSource")
 	public DataSource getDataSource() 
-	{
+	{  
 		DriverManagerDataSource dataSource=new DriverManagerDataSource();		
 		dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
 		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:XE");
@@ -44,9 +49,14 @@ public class DBConfig {
 		hibernateProp.put("hibernate.dialect","org.hibernate.dialect.Oracle10gDialect");
 		LocalSessionFactoryBuilder factoryBuilder=new LocalSessionFactoryBuilder(getDataSource());
 		factoryBuilder.addAnnotatedClass(Blog.class);
-		factoryBuilder.addAnnotatedClass(Forum.class);
 		factoryBuilder.addAnnotatedClass(Job.class);
-		factoryBuilder.addAnnotatedClass(UserDetail.class);	
+		factoryBuilder.addAnnotatedClass(BlogComment.class);	
+		factoryBuilder.addAnnotatedClass(BlogPostLikes.class);	
+		factoryBuilder.addAnnotatedClass(Chat.class);	
+		factoryBuilder.addAnnotatedClass(Friend.class);	
+		factoryBuilder.addAnnotatedClass(Notification.class);	
+		factoryBuilder.addAnnotatedClass(ProfilePicture.class);	
+		factoryBuilder.addAnnotatedClass(UserDetail.class);
 		System.out.println("classes are created");
 		return factoryBuilder.buildSessionFactory();
 	}

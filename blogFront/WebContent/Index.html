@@ -1,48 +1,84 @@
 <!DOCTYPE html>
 <html>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.min.js"></script>
-
 <head>
-<title></title>
-<script type="text/javascript" src="RouteConfig.js"></script>
-<script type="text/javascript" src="controller/UserController.js"></script>
-<script type="text/javascript" src="services/userservice.js"></script>
+<meta charset="ISO-8859-1">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link href="resources/css/login.css" rel="stylesheet">
+<link href="resources/css/Notification.css" rel="stylesheet">
 </head>
-<body ng-app="myApp">
-
-<div id="upperlabel" class="container-fluid">
-	<label>Social Icon</label>
-</div>
-
-<div class="container">
-	<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">ChatCollaborate</a>
+<header>
+<body ng-app="myApp" background="file:///C:/Users/Aravinth/e-commerce/blogFront/WebContent/image/yellow.jpeg">
+<nav class="navbar navbar-default">
+<div class="container-fluid">
+<button type="button" class="navbar-toggle collapsed" 
+   data-toggle="collapse" data-target="#collapse-example" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+     			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Scribble</a>
 			</div>
 			<ul class="nav navbar-nav">
 				<li><a href="#/home">HOME</a></li>
-				<li><a href="#/login" ng-show="loggedInUser.firstname==undefined" >LOGIN</a></li>
-				<li><a href="#/register" ng-show="loggedInUser.firstname==undefined">REGISTER</a></li>
-				<li class="dropdown"><a href="" class="dropdown-toggle"
-				data-toggle="dropdown" ng-show="currentUser.firstname!=undefined">Blog<b class="caret"></b></a>
+				<li><a href="#/login" ng-show="loggedInUser.firstName==undefined" >LOGIN</a></li>
+				<li><a href="#/register" ng-show="loggedInUser.firstName==undefined">REGISTER</a></li>
+			
+				<li><a href="#/edituserprofile" ng-show="loggedInUser.firstName!=undefined">EDIT USER PROFILE</a></li>
+				<li class="dropdown"><a href="" class="dropdown-toggle"	data-toggle="dropdown" >Job<b class="caret"></b></a>
 				<ul class="dropdown-menu">
-				<li> <a href="#/addblog"  > ADD Blog </a></li>
-				<li> <a href="#/blogsnotapproved"  ng-show="currentUser.role=='ADMIN'"  >Blogs Waiting for approval </a></li>
-				<li> <a href="#/blogsapproved"  > Blogs </a></li>
+				<li> <a href="#/addjob"  ng-show="loggedInUser.role=='ADMIN'"> ADD JOB </a></li><!-- -->
+				<li> <a href="#/alljobs" >GET ALL JOBS</a></li>
 				</ul></li>
+	
+		<li class="dropdown"><a href="" class="dropdown-toggle"	data-toggle="dropdown" ng-show="loggedInUser.firstName!=undefined">Blog<b class="caret"></b></a>
+		<ul class="dropdown-menu">
+		<li> <a href="#/addblog"  > ADD Blog </a></li>
+		<li> <a href="#/blogsnotapproved"  ng-show="loggedInUser.role=='ADMIN'"  >Blogs Waiting for approval </a></li>
+		<li> <a href="#/blogsapproved"  > Blogs </a></li>
+		</ul></li>
+			
+		<li class="dropdown"><a href="" class="dropdown-toggle"	data-toggle="dropdown" ng-show="loggedInUser.firstName!=undefined">Friends<b class="caret"></b></a>
+		<ul class="dropdown-menu">
+		<li> <a href="#/suggestedusers"> Suggested Friends </a></li>
+		<li> <a href="#/pendingrequests"> Pending Requests </a></li>
+		<li><a href="#/friends"> Friends</a></li>
+		</ul></li>
+			
 				<li><a href="#/aboutUs">ABOUTUS</a></li>
 				<li><a href="#/contactUs">CONTACTUS</a></li>
+				<li><a href="#" ng-show="loggedInUser.firstName!=undefined">WELCOME! {{loggedInUser.firstName}}&nbsp;{{loggedInUser.lastName}}</a></li>
+				<li><a href="" ng-click="logout()" ng-show="loggedInUser.firstName!=undefined">Logout</a></li>
 			</ul>
 		</div>
 	</nav>
 </div>
+</header>
 <div ng-view></div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.min.js"></script>
+<title></title>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="controller/UserController.js"></script>
+<script type="text/javascript" src="services/userservice.js"></script>
+<script type="text/javascript" src="controller/jobcontroller.js"></script>
+<script type="text/javascript" src="services/jobservice.js"></script>
+<script type="text/javascript" src="controller/blogController.js"></script>
+<script type="text/javascript" src="services/blogservice.js"></script>
+<script type="text/javascript" src="services/friendservice.js"></script>
+<script type="text/javascript" src="controller/Friendcontroller.js"></script>
+<script type="text/javascript" src="controller/notificationcontroller.js"></script>
+<script type="text/javascript" src="services/notificationservice.js"></script>
+<script type="text/javascript" src="js/socketjs/socketjs.min.js"></script>
+<script type="text/javascript" src="js/stomp/dist/stomp.min.js"></script>
 </html>
+

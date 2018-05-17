@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="container">
+<b>Search</b><input type="text" ng-model="searchTxt">
+<div>
+<div class="row" style="width:200px">
+   <div  ng-repeat="job in jobs | filter:searchTxt | orderBy:'-postedon'">
+   <div class="panel panel-info">
+   <div class="panel-heading"><a href="#/getjob/{{job.id}}">{{job.jobtitle}}</a>   
+   </div>
+   <div class="panel-body">
+   <b>Posted On->:</b>{{job.postedon | date:'medium'}}<br> <b>SKILLS REQUIRED ->:</b>{{job.skillsRequired}}
+       </div>
+       </div>
+         </div>
+         </div>
+</div>
+</body>
+</html>

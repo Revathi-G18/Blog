@@ -1,11 +1,13 @@
 myApp.controller('BlogCtrl',function($scope,$rootScope,$location,BlogService){
 	$scope.addBlog=function(){
+		console.log("in blog controller")
 		BlogService.addBlog($scope.blog).then(
 		function(response){
 		alert('BlogPost is added successfully and it is waiting for approval..');
 		$location.path('/home');
 		},function(response){
 					$rootScope.error=response.data
+					console.log("error")
 					if(response.status==401)
 						$location.path('/login');			
 				})			

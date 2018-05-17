@@ -34,7 +34,5 @@ public class BlogPostLikes {
 	}
 	public void setUserDetail(UserDetail userDetail) {
 		this.userDetail = userDetail;
-	}
-	
-	
+	}	
 }

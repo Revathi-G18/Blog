@@ -25,16 +25,18 @@ public class JobController {
 	@Autowired
 	private JobDAO jobDao;
 	@Autowired
-	private UserDetailDAO userDao;
+	private UserDetailDAO userDetailDao;
 
 	@RequestMapping(value="/addjob",method=RequestMethod.POST)
 	public ResponseEntity<?> addJob(@RequestBody Job job,HttpSession session){
+		System.out.println("in add job of job controller");
 		String email=(String)session.getAttribute("currentuser");
 		if(email==null){
 			ErrorClazz error=new ErrorClazz(4,"UNAUTHORIZED ACCESS...");
 			return new ResponseEntity<ErrorClazz>(error,HttpStatus.UNAUTHORIZED);
 		}
-		UserDetail userDetail=userDao.getUser(email);
+		UserDetail userDetail=userDetailDao.getUser(email);
+		/*.equals("ADMIN")*/
 		if(!userDetail.getRole().equals("ADMIN")){
 			ErrorClazz error=new ErrorClazz(5,"Access Denied...");
 					return new ResponseEntity<ErrorClazz>(error,HttpStatus.UNAUTHORIZED);

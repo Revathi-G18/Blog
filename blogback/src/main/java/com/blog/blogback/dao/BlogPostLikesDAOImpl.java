@@ -18,7 +18,7 @@ public class BlogPostLikesDAOImpl implements BlogPostLikesDAO {
 	private SessionFactory sessionFactory;
 	public BlogPostLikes hasUserLikedBlog(int blogId, String email) {
 		Session session=sessionFactory.getCurrentSession();
-		Query query=session.createQuery("from BlogPostLikes where blogPost.id=? and user.email=?");
+		Query query=session.createQuery("from BlogPostLikes where blog.id=? and userdetail.email=?");
 		query.setInteger(0, blogId);
 		query.setString(1, email);
 		BlogPostLikes blogPostLikes=(BlogPostLikes)query.uniqueResult();

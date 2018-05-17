@@ -8,15 +8,15 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 @Component
 @Entity
-@Table(name="userdetail")
+@Table
 public class UserDetail {
 @Id
-String password;
+String email;
 String firstName;
 String lastName;
-String email;
+String password;
 String phonenumber;
-private String role;
+String role;
 @Column(name="online_status")
 private boolean online;
 

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<span ng-if="suggestedUsers.length==0">No Suggested User</span>
+<div class ="table-responsive">
+<table class="table">
+<tr ng-repeat="user in suggestedUsers">
+<td>{{user.email}}<br>
+{{user.firstName}} &nbsp; {{user.lastName}} <br>
+<B>PHONE NUMBER:</B>{{user.phonenumber}}
+</td>
+<td>
+<img src="http://localhost:8085/blogMiddle/getimage/{{userdetail.email}}" alt="No image"  width="50px" height="50px">
+</td>
+<td>
+<button type="button" class="btn btn-primary" ng-click="addFriend(user)">Add Friend</button>
+</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

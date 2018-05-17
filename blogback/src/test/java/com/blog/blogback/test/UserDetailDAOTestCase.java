@@ -27,7 +27,19 @@ public class UserDetailDAOTestCase {
 	}
 	
 @Test
-public void registerUserTest(){
+void registerUser(UserDetail userDetail){
+	UserDetail userDetai=new UserDetail();
+	userDetai.setFirstName("ray");
+	userDetai.setLastName("ray");
+	userDetai.setEmail("ray@123");
+	userDetai.setPassword("ray");
+	userDetai.setPhonenumber("1234");
+	userDetai.setRole("employee");
+	userDetai.setOnline(true);
+	assertTrue("Problem in userdetail registeration",userDetailDAO.registerUser(userDetail));
+}
+@Test
+public boolean isEmailUnique(String email){
 	UserDetail userDetail=new UserDetail();
 	userDetail.setLoginName("sagar");
 	userDetail.setPassword("pass@123");
@@ -35,7 +47,7 @@ public void registerUserTest(){
 	userDetail.setEmailId("sagar@gmail.com");
 	userDetail.setAddress("chennai");
 	userDetail.setMobileNo("123456");
-	assertTrue("Problem in userdetail registeration",userDetailDAO.registeruser(userDetail));
+	assertTrue("Problem in userdetail registeration",userDetailDAO.registerUser(userDetail));
 }
 
 

@@ -36,7 +36,7 @@ public class UserDetailDAOImpl implements UserDetailDAO{
 		public UserDetail login(UserDetail userDetail) {
 		
 			Session session=sessionFactory.getCurrentSession();
-			Query query=session.createQuery("from User where email=? and password=?");
+			Query query=session.createQuery("from UserDetail where email=? and password=?");
 			query.setString(0, userDetail.getEmail());
 			query.setString(1, userDetail.getPassword());
 			return (UserDetail)query.uniqueResult();
@@ -64,7 +64,7 @@ public class UserDetailDAOImpl implements UserDetailDAO{
 		public List<UserDetail> searchUser(String name) {
 			System.out.println(name);
 			Session session=sessionFactory.getCurrentSession();
-			Query query=session.createQuery("from User u where u.firstname like ? or u.lastname like ? or u.email like ? or u.phonenumber like ?");
+			Query query=session.createQuery("from UserDetail u where u.firstName like ? or u.lastName like ? or u.email like ? or u.phonenumber like ?");
 			query.setString(0,"%"+name+ "%");
 			query.setString(1,"%"+name+ "%");
 			query.setString(2,"%"+name+ "%");

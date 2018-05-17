@@ -11,10 +11,30 @@ myApp.factory('UserService',function($http)
 		
 	}
 	
-	userService.login=function(user)
+	userService.login=function(userdetail)
 	{   console.log('userservice-->login') 
-		console.log(user)
-		return $http.post(BASE_URL +"/login", user)
+		console.log(userdetail)
+		return $http.post(BASE_URL +"/login", userdetail)
+	}
+	userService.logout=function()
+	{
+		console.log("b4 logged out...")
+
+		return $http.put(BASE_URL +"/logout")
+		console.log("logged out...")
+	}
+	userService.getUser=function(){
+		console.log("in getuser of user service")
+		return $http.get(BASE_URL +"/getuser")
+	}
+	userService.updateUser=function(userdetail){
+		console.log(userdetail)
+		console.log($http.put(BASE_URL +"/updateUser",userdetail))
+		return $http.put(BASE_URL +"/updateUser",userdetail)
+	}
+	userService.searchUser=function(userdetail){
+		console.log("searchuser..")
+		return $http.get(BASE_URL +"/searchuser/"+user)
 	}
 	return userService;
 })

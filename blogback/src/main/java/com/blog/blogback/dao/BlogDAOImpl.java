@@ -29,7 +29,7 @@ public class BlogDAOImpl implements BlogDAO {
 	
 	public List<Blog> listofBlogs(int approved) {
 		Session session=sessionFactory.getCurrentSession();
-		Query query=session.createQuery("from BlogPost where approved=" +approved);
+		Query query=session.createQuery("from Blog where approved=" +approved);
 		List<Blog> blogs=query.list();
 		return blogs;
 	}
@@ -42,7 +42,7 @@ public class BlogDAOImpl implements BlogDAO {
 	
 	public void approve(Blog blog) {
 		Session session=sessionFactory.getCurrentSession();
-		blog.setApproved(true);
+		blog.setApproved(1);
 		session.update(blog);
 		Notification notification=new Notification();
 		notification.setBlogTitle(blog.getBlogTitle());
@@ -70,10 +70,10 @@ public class BlogDAOImpl implements BlogDAO {
 		
 	}
 	
-	public List<BlogComment> getAllBlogComments(int blogPostId) {
+	public List<BlogComment> getAllBlogComments(int blogId) {
 		Session session=sessionFactory.getCurrentSession();
-		Query query=session.createQuery("from BlogComment where blogPost.id=?");
-		query.setInteger(0, blogPostId);
+		Query query=session.createQuery("from BlogComment where blog.id=?");
+		query.setInteger(0, blogId);
 		List<BlogComment> blogComments=query.list();
 		return blogComments;
 	}

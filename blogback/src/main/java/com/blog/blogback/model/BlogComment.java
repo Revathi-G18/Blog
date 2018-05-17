@@ -13,18 +13,20 @@ import org.springframework.stereotype.Component;
 public class BlogComment {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private int BlogCommentid;
 	@ManyToOne
 	private Blog blog;
 	@ManyToOne
 	private UserDetail commentedBy;
 	private Date commentedOn;
 	private String commentTxt;
-	public int getId() {
-		return id;
+	
+	
+	public int getBlogCommentid() {
+		return BlogCommentid;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setBlogCommentid(int blogCommentid) {
+		BlogCommentid = blogCommentid;
 	}
 	public Blog getBlog() {
 		return blog;
@@ -49,7 +51,5 @@ public class BlogComment {
 	}
 	public void setCommentTxt(String commentTxt) {
 		this.commentTxt = commentTxt;
-	}
-
-	
+	}	
 }

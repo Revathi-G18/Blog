@@ -6,13 +6,13 @@
 </head>
 <body>
 <div class="container" ng-controller="UserController">
-<h1><center><font type="Monotype corsiva">Registration Form</font></center></h1>
+<h1><center><font type="Monotype corsiva" color="white">Registration Form</font></center></h1>
 <form>
 
 	<div class="row">
         <div class="col-md-6">
             <form action="" method="post" id="fileForm" role="form">
-            <fieldset><legend class="text-center"><font color="blue">Valid information is required to register: </font></legend>
+            <fieldset><legend class="text-center"><font color="white">Valid information is required to register: </font></legend>
                             
     <!-- <span style="color:red" ng-if="error.code==1">{{error.message}}</span>   -->   
            
@@ -40,11 +40,12 @@
             <label for="phonenumber"><span class="req">* </span> Phone Number: </label>
                     <input required type="text" name="phonenumber" id="phone" class="form-control phone" maxlength="28" placeholder="Enter Your Phonenumber " ng-model="userdetail.phonenumber"/> 
             </div>
-            Select Role:
+            <font color="white"> Select Role:
+      
 <input type="radio" value="STUDENT" ng-model="userdetail.role">Student  
 <input type="radio" value="EMPLOYEE" ng-model="userdetail.role"> Employee
 <input type="radio" value="ALUMNI" ng-model="userdetail.role"> Alumni
-
+</font>
             
 
             <div class="form-group">

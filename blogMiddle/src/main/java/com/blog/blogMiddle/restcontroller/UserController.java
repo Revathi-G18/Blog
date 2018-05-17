@@ -29,7 +29,7 @@ public class UserController {
 		public ResponseEntity<?> registerUser(@RequestBody UserDetail userDetail){
 			System.out.println("registeruser in usercontroller" +userDetail);
 			if(!userDetailDao.isEmailUnique(userDetail.getEmail()))
-			{
+			{   System.out.println("email");
 				ErrorClazz error= new ErrorClazz(1,"Email already exist");
 				return new ResponseEntity<ErrorClazz>(error,HttpStatus.CONFLICT);
 			}
@@ -51,7 +51,6 @@ public class UserController {
 			}
 			else
 				{ 
-				System.out.println("enter to login");
 				ValidUser.setOnline(true);
 			    userDetailDao.update(ValidUser);
 				session.setAttribute("currentuser", user.getEmail());
@@ -85,6 +84,7 @@ public class UserController {
 		}
 		@RequestMapping(value="/updateUser",method=RequestMethod.PUT)
 		public ResponseEntity<?>updateUser(@RequestBody UserDetail userDetail,HttpSession session){
+			System.out.println("updateuser in usercontroller" +userDetail);
 			String email=(String)session.getAttribute("currentuser");
 			if(email==null){
 				ErrorClazz error=new ErrorClazz(5,"Unauthorised access...");

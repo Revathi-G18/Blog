@@ -22,12 +22,12 @@ public class FriendDAOImpl implements FriendDAO {
 	
 		public List<UserDetail> suggestedUsers(String email) {
 			Session session=sessionFactory.getCurrentSession();
-		String queryString="select * from user_180250 where email in"
-				+ "(select email from user_180250 where email!=?"
+		String queryString="select * from userdetail where email in"
+				+ "(select email from userdetail where email!=?"
 				+"minus "
-				+"(select toId_email from friend_s180250 where fromId_email=?"
+				+"(select toId from friend where fromId=?"
 				+"union "
-				+"select fromId_email from friend_s180250 where toId_email=?))";
+				+"select fromId from friend where toId=?))";
 		SQLQuery query=session.createSQLQuery(queryString);
 		query.setString(0, email);
 		query.setString(1, email);

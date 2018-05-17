@@ -30,33 +30,37 @@ public class BlogController {
 	private UserDetailDAO userDetailDao;
 	@RequestMapping(value="/addblogpost", method=RequestMethod.POST)
 	public ResponseEntity<?> addBlogPost(@RequestBody Blog blog,HttpSession session){
+		System.out.println("in add blogpost of blogcontroller");
 		String email=(String)session.getAttribute("currentuser");
 		if(email==null){
 			ErrorClazz error=new ErrorClazz(5,"Unauthorised access....");
 			return new ResponseEntity<ErrorClazz>(error,HttpStatus.UNAUTHORIZED);
 		}
 		blog.setPostedon(new Date());
+		System.out.println("blog   1");
 		UserDetail postedBy=userDetailDao.getUser(email);
+		System.out.println("blog   2");
 		blog.setPostedBy(postedBy);
 		try
-		{
+		{	System.out.println(blog);
 			blogDao.addBlogPost(blog);
 			return new ResponseEntity<Blog>(blog,HttpStatus.OK);
 		}catch(Exception e)
 		{
 			ErrorClazz error=new ErrorClazz(6,"Unable to post blog..." +e.getMessage());
 			return new ResponseEntity<ErrorClazz>(error,HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-			
+		}			
 	}
 	@RequestMapping(value="/getblogs/{approved}",method=RequestMethod.GET)
 	public ResponseEntity<?>getAllBlogs(@PathVariable int approved,HttpSession session){
+		System.out.println("in middlewares blogcontroller");
 		String email=(String)session.getAttribute("currentuser");
 		if(email==null){
 			ErrorClazz error=new ErrorClazz(5,"Unauthorised access....");
 			return new ResponseEntity<ErrorClazz>(error,HttpStatus.UNAUTHORIZED);
 		}
 		if(approved==0){
+			System.out.println(" aloooo...........in middlewares blogcontroller");
 			UserDetail userDetail=userDetailDao.getUser(email);
 			if(!userDetail.getRole().equals("ADMIN")){
 				ErrorClazz error=new ErrorClazz(7,"Access Denied");
@@ -124,14 +128,14 @@ public class BlogController {
 		}
 		return new ResponseEntity<BlogComment>(blogComment,HttpStatus.OK);
 	}
-	@RequestMapping(value="/blogcomments/{blogPostId}",method=RequestMethod.GET)
-	public ResponseEntity<?> getAllBlogComments(@PathVariable int blogPostId,HttpSession session){
+	@RequestMapping(value="/blogcomments/{blogId}",method=RequestMethod.GET)
+	public ResponseEntity<?> getAllBlogComments(@PathVariable int blogId,HttpSession session){
 		String email=(String)session.getAttribute("currentuser");
 		if(email==null){
 			ErrorClazz error=new ErrorClazz(5,"Unauthorised access....");
 			return new ResponseEntity<ErrorClazz>(error,HttpStatus.UNAUTHORIZED);
 		}
-		List<BlogComment> blogComments=blogDao.getAllBlogComments(blogPostId);
+		List<BlogComment> blogComments=blogDao.getAllBlogComments(blogId);
 		return new ResponseEntity<List<BlogComment>>(blogComments,HttpStatus.OK);
 	}
 }
